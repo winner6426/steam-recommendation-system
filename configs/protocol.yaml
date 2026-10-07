@@ -1,0 +1,52 @@
+version: 1
+T1: 2022-06-30
+T2: 2022-09-30
+seed: 42
+scope: full
+repetition:
+  seeds: [42, 43, 44]
+paths:
+  database: data/processed/steamrec.duckdb
+  preprocess_manifest: experiments/manifests/preprocess.json
+  splits: data/splits
+  manifests: experiments/manifests
+  reports: experiments/runs
+  checkpoints: artifacts/checkpoints
+  bundles: artifacts/bundles
+execution:
+  memory_limit: 2GB
+  threads: 2
+  temporary_directory: data/processed/tmp/snapshots
+  device: cpu
+  batch_size: 1024
+  item_batch_size: 2048
+  user_batch_size: 128
+  epochs: 3
+  checkpoint_every_batches: 1000
+  learning_rate: 0.05
+  l2: 0.00001
+  embedding_dimension: 64
+  max_grad_norm: 5.0
+  benchmark_batches: 20
+sampler:
+  version: keyed-v1
+  explicit_count: 2
+  unknown_count: 6
+  explicit_weight: 1.0
+  unknown_weight: 0.25
+  mode: mixed
+  semantic_low: 0.05
+  semantic_high: 0.20
+  semantic_fraction: 0.5
+content:
+  dimensions: 128
+  max_features: 50000
+  ngram_range: [1, 2]
+  min_df: 1
+evaluation:
+  ks: [10, 20]
+  selection_metric: NDCG@10
+  sparse_user_max: 3
+  sparse_item_max: 5
+cold:
+  fraction: 0.1

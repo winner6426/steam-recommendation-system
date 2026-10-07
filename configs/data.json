@@ -1,0 +1,18 @@
+{
+    "inputs": {
+        "interactions": "data/raw/recommendations.csv",
+        "catalog": "data/raw/games.csv",
+        "users": "data/raw/users.csv",
+        "metadata": "data/raw/games_metadata.json"
+    },
+    "outputs": {
+        "database": "data/processed/steamrec.duckdb",
+        "parquet_directory": "data/processed/parquet",
+        "manifest": "experiments/manifests/preprocess.json"
+    },
+    "execution": {
+        "memory_limit": "512MB",
+        "threads": 2,
+        "temporary_directory": "data/processed/tmp"
+    }
+}

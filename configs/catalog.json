@@ -1,0 +1,9 @@
+{
+  "games_csv": "data/games.csv",
+  "interactions_parquet": "data/processed/demo/interactions_clean.parquet",
+  "output_dir": "data/processed/catalog_demo_001",
+  "manifest": "experiments/catalog_demo_001.json",
+  "interaction_scope": "smoke sample; not full review dataset",
+  "memory_limit": "512MB",
+  "threads": 2
+}
