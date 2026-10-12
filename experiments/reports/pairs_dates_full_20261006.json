@@ -1,0 +1,196 @@
+{
+  "created_utc": "2026-10-06T08:26:13.754723+00:00",
+  "scope": "all rows; no sampling or input modification",
+  "duckdb_version": "1.5.6",
+  "inputs": {
+    "interactions": {
+      "path": "data\\raw\\recommendations.csv",
+      "bytes": 2023223067,
+      "mtime_ns": 1723616276000000000
+    },
+    "catalog": {
+      "path": "data\\raw\\games.csv",
+      "bytes": 4863790,
+      "mtime_ns": 1723616260000000000
+    }
+  },
+  "date_rule": "Trim whitespace, require YYYY-MM-DD and a real calendar date. Temporal anomalies reported separately.",
+  "review_dates": {
+    "rows": 41154794,
+    "missing": 0,
+    "invalid_total": 0,
+    "invalid_format": 0,
+    "invalid_calendar_date": 0,
+    "surrounding_whitespace": 0,
+    "min_date": "2010-10-15",
+    "max_date": "2022-12-31",
+    "invalid_id_rows": 0
+  },
+  "invalid_review_date_examples": [],
+  "duplicate_pairs": {
+    "repeated_pair_groups": 21,
+    "rows_in_repeated_pairs": 42,
+    "excess_rows": 21,
+    "max_occurrences": 2,
+    "conflicting_label_groups": 5
+  },
+  "duplicate_pair_examples": [
+    {
+      "user_id": 1085990,
+      "app_id": 1205960,
+      "occurrences": 2,
+      "first_date": "2021-12-03",
+      "last_date": "2021-12-04",
+      "distinct_labels": 2
+    },
+    {
+      "user_id": 2433696,
+      "app_id": 440,
+      "occurrences": 2,
+      "first_date": "2021-12-02",
+      "last_date": "2021-12-04",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 3054178,
+      "app_id": 1454400,
+      "occurrences": 2,
+      "first_date": "2021-12-03",
+      "last_date": "2021-12-07",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 3070422,
+      "app_id": 1118200,
+      "occurrences": 2,
+      "first_date": "2022-06-07",
+      "last_date": "2022-06-12",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 3081752,
+      "app_id": 617290,
+      "occurrences": 2,
+      "first_date": "2019-08-27",
+      "last_date": "2019-10-11",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 3126060,
+      "app_id": 225540,
+      "occurrences": 2,
+      "first_date": "2022-06-06",
+      "last_date": "2022-06-19",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 3148709,
+      "app_id": 1063730,
+      "occurrences": 2,
+      "first_date": "2021-12-02",
+      "last_date": "2021-12-17",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 3280730,
+      "app_id": 1293830,
+      "occurrences": 2,
+      "first_date": "2021-12-03",
+      "last_date": "2021-12-05",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 4225445,
+      "app_id": 451020,
+      "occurrences": 2,
+      "first_date": "2019-11-01",
+      "last_date": "2019-11-09",
+      "distinct_labels": 1
+    },
+    {
+      "user_id": 5017461,
+      "app_id": 282440,
+      "occurrences": 2,
+      "first_date": "2014-09-26",
+      "last_date": "2016-01-15",
+      "distinct_labels": 2
+    }
+  ],
+  "release_dates": {
+    "rows": 50872,
+    "missing": 0,
+    "invalid_total": 0,
+    "invalid_format": 0,
+    "invalid_calendar_date": 0,
+    "min_date": "1997-06-30",
+    "max_date": "2023-10-24"
+  },
+  "invalid_release_date_examples": [],
+  "temporal_anomalies": {
+    "review_rows_before_release": 2996566,
+    "games_with_reviews_before_release": 4304
+  },
+  "before_release_examples": [
+    {
+      "app_id": 1468810,
+      "release_date": "2023-05-26",
+      "earliest_review": "2021-01-27",
+      "review_rows": 116568
+    },
+    {
+      "app_id": 261550,
+      "release_date": "2022-10-25",
+      "earliest_review": "2020-03-30",
+      "review_rows": 116516
+    },
+    {
+      "app_id": 444090,
+      "release_date": "2018-05-08",
+      "earliest_review": "2016-09-15",
+      "review_rows": 86894
+    },
+    {
+      "app_id": 304930,
+      "release_date": "2017-07-07",
+      "earliest_review": "2014-06-16",
+      "review_rows": 68436
+    },
+    {
+      "app_id": 252490,
+      "release_date": "2018-02-08",
+      "earliest_review": "2013-12-05",
+      "review_rows": 57470
+    },
+    {
+      "app_id": 221100,
+      "release_date": "2018-12-13",
+      "earliest_review": "2013-12-16",
+      "review_rows": 52355
+    },
+    {
+      "app_id": 244850,
+      "release_date": "2019-02-28",
+      "earliest_review": "2013-10-23",
+      "review_rows": 51218
+    },
+    {
+      "app_id": 427520,
+      "release_date": "2020-08-14",
+      "earliest_review": "2016-02-25",
+      "review_rows": 48609
+    },
+    {
+      "app_id": 714010,
+      "release_date": "2023-06-16",
+      "earliest_review": "2018-02-07",
+      "review_rows": 46347
+    },
+    {
+      "app_id": 1086940,
+      "release_date": "2023-08-03",
+      "earliest_review": "2020-10-06",
+      "review_rows": 45148
+    }
+  ],
+  "elapsed_seconds": 129.32
+}
