@@ -1,0 +1,6 @@
+# Phase 1 trials. Shared hyperparameters (lr, l2, dimension, epochs, batch) live in protocol.yaml;
+# a trial may override one of them, but then rerun the matching control family too.
+architecture: mf
+trials:
+  - {name: mf-bce, objective: bce}
+  - {name: mf-bpr, objective: bpr}
