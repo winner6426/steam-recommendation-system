@@ -1,0 +1,6 @@
+# Phase 2 trials: same sampler/budget as Phase 1, plus content projection and ID dropout.
+# Hybrid+BPR is the mandatory control for Phase 3.
+architecture: hybrid
+trials:
+  - {name: hybrid-bce, objective: bce, id_dropout: 0.1}
+  - {name: hybrid-bpr, objective: bpr, id_dropout: 0.1}
