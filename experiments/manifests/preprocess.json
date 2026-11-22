@@ -1,0 +1,997 @@
+{
+  "pipeline_version": 2,
+  "scope": "full; no LIMIT or sampling",
+  "created_utc": "2026-11-22T16:39:52.983111+00:00",
+  "elapsed_seconds": 193.91,
+  "duckdb_version": "1.5.6",
+  "config": {
+    "inputs": {
+      "interactions": "data/raw/recommendations.csv",
+      "catalog": "data/raw/games.csv",
+      "users": "data/raw/users.csv",
+      "metadata": "data/raw/games_metadata.json"
+    },
+    "outputs": {
+      "database": "data/processed/steamrec.duckdb",
+      "parquet_directory": "data/processed/parquet",
+      "manifest": "experiments/manifests/preprocess.json"
+    },
+    "execution": {
+      "memory_limit": "512MB",
+      "threads": 2,
+      "temporary_directory": "data/processed/tmp"
+    }
+  },
+  "inputs": {
+    "interactions": {
+      "bytes": 2023223067,
+      "sha256": "18731b9e253b63ad8642dde48c212620621c33080d7609fa092a308caaffbb34",
+      "mtime_ns": 1723616276000000000
+    },
+    "games": {
+      "bytes": 4863790,
+      "sha256": "8886585fefd521f43a92d1018cd944a7265e82c0c509f0abb6103d38ae10072a",
+      "mtime_ns": 1723616260000000000
+    },
+    "users": {
+      "bytes": 193068018,
+      "sha256": "91b7fc59f266b75fb8972eb891be32aefce20f75c379dbbb0b3022d87c2d4dfc",
+      "mtime_ns": 1723616416000000000
+    },
+    "content": {
+      "bytes": 17548605,
+      "sha256": "35145f380dac78173aa8f5eca578db5614f28d5e869c33457b11e7f23d42e21d",
+      "mtime_ns": 1790344352032748600
+    }
+  },
+  "counts": {
+    "interactions": {
+      "input_rows": 41154794,
+      "stored_rows": 41154794,
+      "rejected_rows": 0
+    },
+    "games": {
+      "input_rows": 50872,
+      "stored_rows": 50872,
+      "rejected_rows": 0
+    },
+    "users": {
+      "input_rows": 14306064,
+      "stored_rows": 14306064,
+      "rejected_rows": 0
+    },
+    "content": {
+      "input_rows": 50872,
+      "stored_rows": 50872,
+      "rejected_rows": 0
+    }
+  },
+  "audit": {
+    "positive_rows": 35304398,
+    "negative_rows": 5850396,
+    "repeated_pairs": 21,
+    "orphan_game_reviews": 0,
+    "orphan_user_reviews": 0,
+    "reviews_before_release": 2996566,
+    "missing_release_dates": 0,
+    "missing_content": 1229,
+    "games_without_metadata": 0,
+    "metadata_without_game": 0
+  },
+  "monthly": [
+    {
+      "month": "2010-10",
+      "rows": 363,
+      "positives": 352,
+      "users": 199
+    },
+    {
+      "month": "2010-11",
+      "rows": 4331,
+      "positives": 4211,
+      "users": 2745
+    },
+    {
+      "month": "2010-12",
+      "rows": 7507,
+      "positives": 7320,
+      "users": 5584
+    },
+    {
+      "month": "2011-01",
+      "rows": 3302,
+      "positives": 3182,
+      "users": 2317
+    },
+    {
+      "month": "2011-02",
+      "rows": 2129,
+      "positives": 2046,
+      "users": 1604
+    },
+    {
+      "month": "2011-03",
+      "rows": 2532,
+      "positives": 2416,
+      "users": 1920
+    },
+    {
+      "month": "2011-04",
+      "rows": 3120,
+      "positives": 3038,
+      "users": 2347
+    },
+    {
+      "month": "2011-05",
+      "rows": 2722,
+      "positives": 2609,
+      "users": 2103
+    },
+    {
+      "month": "2011-06",
+      "rows": 3167,
+      "positives": 3022,
+      "users": 2262
+    },
+    {
+      "month": "2011-07",
+      "rows": 14103,
+      "positives": 13721,
+      "users": 11387
+    },
+    {
+      "month": "2011-08",
+      "rows": 4206,
+      "positives": 4019,
+      "users": 3122
+    },
+    {
+      "month": "2011-09",
+      "rows": 3782,
+      "positives": 3595,
+      "users": 2836
+    },
+    {
+      "month": "2011-10",
+      "rows": 4019,
+      "positives": 3838,
+      "users": 3027
+    },
+    {
+      "month": "2011-11",
+      "rows": 4701,
+      "positives": 4513,
+      "users": 3461
+    },
+    {
+      "month": "2011-12",
+      "rows": 23763,
+      "positives": 23043,
+      "users": 19651
+    },
+    {
+      "month": "2012-01",
+      "rows": 6125,
+      "positives": 5838,
+      "users": 4667
+    },
+    {
+      "month": "2012-02",
+      "rows": 4552,
+      "positives": 4282,
+      "users": 3450
+    },
+    {
+      "month": "2012-03",
+      "rows": 3783,
+      "positives": 3595,
+      "users": 2980
+    },
+    {
+      "month": "2012-04",
+      "rows": 4143,
+      "positives": 3930,
+      "users": 3126
+    },
+    {
+      "month": "2012-05",
+      "rows": 4324,
+      "positives": 4110,
+      "users": 3281
+    },
+    {
+      "month": "2012-06",
+      "rows": 4993,
+      "positives": 4761,
+      "users": 3810
+    },
+    {
+      "month": "2012-07",
+      "rows": 25031,
+      "positives": 24333,
+      "users": 20625
+    },
+    {
+      "month": "2012-08",
+      "rows": 8465,
+      "positives": 8086,
+      "users": 6764
+    },
+    {
+      "month": "2012-09",
+      "rows": 7542,
+      "positives": 7222,
+      "users": 6224
+    },
+    {
+      "month": "2012-10",
+      "rows": 7855,
+      "positives": 7573,
+      "users": 6562
+    },
+    {
+      "month": "2012-11",
+      "rows": 9662,
+      "positives": 9269,
+      "users": 7718
+    },
+    {
+      "month": "2012-12",
+      "rows": 15251,
+      "positives": 14647,
+      "users": 11990
+    },
+    {
+      "month": "2013-01",
+      "rows": 13070,
+      "positives": 12523,
+      "users": 10046
+    },
+    {
+      "month": "2013-02",
+      "rows": 8321,
+      "positives": 7921,
+      "users": 6655
+    },
+    {
+      "month": "2013-03",
+      "rows": 11476,
+      "positives": 11009,
+      "users": 9342
+    },
+    {
+      "month": "2013-04",
+      "rows": 11364,
+      "positives": 10877,
+      "users": 9188
+    },
+    {
+      "month": "2013-05",
+      "rows": 12969,
+      "positives": 12413,
+      "users": 10432
+    },
+    {
+      "month": "2013-06",
+      "rows": 14441,
+      "positives": 13812,
+      "users": 11442
+    },
+    {
+      "month": "2013-07",
+      "rows": 25379,
+      "positives": 24504,
+      "users": 18850
+    },
+    {
+      "month": "2013-08",
+      "rows": 17023,
+      "positives": 16152,
+      "users": 12720
+    },
+    {
+      "month": "2013-09",
+      "rows": 14834,
+      "positives": 14074,
+      "users": 11433
+    },
+    {
+      "month": "2013-10",
+      "rows": 18473,
+      "positives": 17559,
+      "users": 14300
+    },
+    {
+      "month": "2013-11",
+      "rows": 48232,
+      "positives": 43484,
+      "users": 35869
+    },
+    {
+      "month": "2013-12",
+      "rows": 139753,
+      "positives": 127763,
+      "users": 112450
+    },
+    {
+      "month": "2014-01",
+      "rows": 101589,
+      "positives": 91442,
+      "users": 82805
+    },
+    {
+      "month": "2014-02",
+      "rows": 80010,
+      "positives": 70817,
+      "users": 64708
+    },
+    {
+      "month": "2014-03",
+      "rows": 74304,
+      "positives": 66049,
+      "users": 60203
+    },
+    {
+      "month": "2014-04",
+      "rows": 61557,
+      "positives": 54611,
+      "users": 51021
+    },
+    {
+      "month": "2014-05",
+      "rows": 71199,
+      "positives": 62430,
+      "users": 57986
+    },
+    {
+      "month": "2014-06",
+      "rows": 154066,
+      "positives": 139353,
+      "users": 125893
+    },
+    {
+      "month": "2014-07",
+      "rows": 106888,
+      "positives": 94078,
+      "users": 85534
+    },
+    {
+      "month": "2014-08",
+      "rows": 86279,
+      "positives": 75565,
+      "users": 70189
+    },
+    {
+      "month": "2014-09",
+      "rows": 79905,
+      "positives": 68882,
+      "users": 62383
+    },
+    {
+      "month": "2014-10",
+      "rows": 90387,
+      "positives": 77694,
+      "users": 71381
+    },
+    {
+      "month": "2014-11",
+      "rows": 102070,
+      "positives": 87335,
+      "users": 80295
+    },
+    {
+      "month": "2014-12",
+      "rows": 134902,
+      "positives": 117267,
+      "users": 104664
+    },
+    {
+      "month": "2015-01",
+      "rows": 119657,
+      "positives": 102222,
+      "users": 91255
+    },
+    {
+      "month": "2015-02",
+      "rows": 98221,
+      "positives": 84198,
+      "users": 76687
+    },
+    {
+      "month": "2015-03",
+      "rows": 103343,
+      "positives": 88936,
+      "users": 82081
+    },
+    {
+      "month": "2015-04",
+      "rows": 103554,
+      "positives": 87599,
+      "users": 83450
+    },
+    {
+      "month": "2015-05",
+      "rows": 103707,
+      "positives": 87910,
+      "users": 82267
+    },
+    {
+      "month": "2015-06",
+      "rows": 164884,
+      "positives": 136044,
+      "users": 128149
+    },
+    {
+      "month": "2015-07",
+      "rows": 116586,
+      "positives": 96600,
+      "users": 90333
+    },
+    {
+      "month": "2015-08",
+      "rows": 108616,
+      "positives": 89910,
+      "users": 84365
+    },
+    {
+      "month": "2015-09",
+      "rows": 104973,
+      "positives": 88601,
+      "users": 82649
+    },
+    {
+      "month": "2015-10",
+      "rows": 125886,
+      "positives": 99786,
+      "users": 98793
+    },
+    {
+      "month": "2015-11",
+      "rows": 148375,
+      "positives": 121907,
+      "users": 117239
+    },
+    {
+      "month": "2015-12",
+      "rows": 179297,
+      "positives": 149232,
+      "users": 140638
+    },
+    {
+      "month": "2016-01",
+      "rows": 172399,
+      "positives": 143998,
+      "users": 133867
+    },
+    {
+      "month": "2016-02",
+      "rows": 163909,
+      "positives": 136900,
+      "users": 129416
+    },
+    {
+      "month": "2016-03",
+      "rows": 147722,
+      "positives": 121720,
+      "users": 117835
+    },
+    {
+      "month": "2016-04",
+      "rows": 131399,
+      "positives": 107817,
+      "users": 104735
+    },
+    {
+      "month": "2016-05",
+      "rows": 144369,
+      "positives": 118565,
+      "users": 113916
+    },
+    {
+      "month": "2016-06",
+      "rows": 165679,
+      "positives": 136763,
+      "users": 130046
+    },
+    {
+      "month": "2016-07",
+      "rows": 170025,
+      "positives": 141306,
+      "users": 132012
+    },
+    {
+      "month": "2016-08",
+      "rows": 179810,
+      "positives": 136239,
+      "users": 143627
+    },
+    {
+      "month": "2016-09",
+      "rows": 140256,
+      "positives": 111391,
+      "users": 111445
+    },
+    {
+      "month": "2016-10",
+      "rows": 153555,
+      "positives": 122633,
+      "users": 122399
+    },
+    {
+      "month": "2016-11",
+      "rows": 445845,
+      "positives": 406604,
+      "users": 385724
+    },
+    {
+      "month": "2016-12",
+      "rows": 211445,
+      "positives": 174886,
+      "users": 164612
+    },
+    {
+      "month": "2017-01",
+      "rows": 203669,
+      "positives": 167943,
+      "users": 154307
+    },
+    {
+      "month": "2017-02",
+      "rows": 175925,
+      "positives": 140499,
+      "users": 136613
+    },
+    {
+      "month": "2017-03",
+      "rows": 179843,
+      "positives": 146977,
+      "users": 140274
+    },
+    {
+      "month": "2017-04",
+      "rows": 173674,
+      "positives": 141697,
+      "users": 134139
+    },
+    {
+      "month": "2017-05",
+      "rows": 182409,
+      "positives": 149273,
+      "users": 139895
+    },
+    {
+      "month": "2017-06",
+      "rows": 279607,
+      "positives": 220213,
+      "users": 218810
+    },
+    {
+      "month": "2017-07",
+      "rows": 256858,
+      "positives": 208938,
+      "users": 195854
+    },
+    {
+      "month": "2017-08",
+      "rows": 203506,
+      "positives": 159666,
+      "users": 156975
+    },
+    {
+      "month": "2017-09",
+      "rows": 195954,
+      "positives": 154946,
+      "users": 153454
+    },
+    {
+      "month": "2017-10",
+      "rows": 222015,
+      "positives": 177671,
+      "users": 172047
+    },
+    {
+      "month": "2017-11",
+      "rows": 485466,
+      "positives": 437617,
+      "users": 413232
+    },
+    {
+      "month": "2017-12",
+      "rows": 275516,
+      "positives": 224794,
+      "users": 210113
+    },
+    {
+      "month": "2018-01",
+      "rows": 250212,
+      "positives": 204850,
+      "users": 190620
+    },
+    {
+      "month": "2018-02",
+      "rows": 222792,
+      "positives": 178370,
+      "users": 172600
+    },
+    {
+      "month": "2018-03",
+      "rows": 222160,
+      "positives": 174832,
+      "users": 171550
+    },
+    {
+      "month": "2018-04",
+      "rows": 182197,
+      "positives": 145447,
+      "users": 139813
+    },
+    {
+      "month": "2018-05",
+      "rows": 200025,
+      "positives": 160399,
+      "users": 154426
+    },
+    {
+      "month": "2018-06",
+      "rows": 255079,
+      "positives": 201927,
+      "users": 193383
+    },
+    {
+      "month": "2018-07",
+      "rows": 223938,
+      "positives": 179470,
+      "users": 168770
+    },
+    {
+      "month": "2018-08",
+      "rows": 206762,
+      "positives": 162614,
+      "users": 162302
+    },
+    {
+      "month": "2018-09",
+      "rows": 171799,
+      "positives": 133293,
+      "users": 134982
+    },
+    {
+      "month": "2018-10",
+      "rows": 166309,
+      "positives": 130723,
+      "users": 131170
+    },
+    {
+      "month": "2018-11",
+      "rows": 494513,
+      "positives": 448720,
+      "users": 433740
+    },
+    {
+      "month": "2018-12",
+      "rows": 249433,
+      "positives": 193114,
+      "users": 193378
+    },
+    {
+      "month": "2019-01",
+      "rows": 222784,
+      "positives": 179099,
+      "users": 169956
+    },
+    {
+      "month": "2019-02",
+      "rows": 198557,
+      "positives": 157579,
+      "users": 152404
+    },
+    {
+      "month": "2019-03",
+      "rows": 196407,
+      "positives": 158194,
+      "users": 152879
+    },
+    {
+      "month": "2019-04",
+      "rows": 185876,
+      "positives": 146076,
+      "users": 145567
+    },
+    {
+      "month": "2019-05",
+      "rows": 204498,
+      "positives": 164043,
+      "users": 158817
+    },
+    {
+      "month": "2019-06",
+      "rows": 624911,
+      "positives": 562924,
+      "users": 541020
+    },
+    {
+      "month": "2019-07",
+      "rows": 548191,
+      "positives": 491004,
+      "users": 472674
+    },
+    {
+      "month": "2019-08",
+      "rows": 182196,
+      "positives": 143882,
+      "users": 139968
+    },
+    {
+      "month": "2019-09",
+      "rows": 159155,
+      "positives": 124984,
+      "users": 123503
+    },
+    {
+      "month": "2019-10",
+      "rows": 241069,
+      "positives": 200765,
+      "users": 194835
+    },
+    {
+      "month": "2019-11",
+      "rows": 795677,
+      "positives": 738329,
+      "users": 678855
+    },
+    {
+      "month": "2019-12",
+      "rows": 667513,
+      "positives": 602950,
+      "users": 555541
+    },
+    {
+      "month": "2020-01",
+      "rows": 536730,
+      "positives": 479909,
+      "users": 444066
+    },
+    {
+      "month": "2020-02",
+      "rows": 472467,
+      "positives": 413787,
+      "users": 392141
+    },
+    {
+      "month": "2020-03",
+      "rows": 657934,
+      "positives": 581103,
+      "users": 537893
+    },
+    {
+      "month": "2020-04",
+      "rows": 672840,
+      "positives": 586951,
+      "users": 547302
+    },
+    {
+      "month": "2020-05",
+      "rows": 577795,
+      "positives": 501779,
+      "users": 473671
+    },
+    {
+      "month": "2020-06",
+      "rows": 586450,
+      "positives": 516410,
+      "users": 468915
+    },
+    {
+      "month": "2020-07",
+      "rows": 647891,
+      "positives": 572491,
+      "users": 506726
+    },
+    {
+      "month": "2020-08",
+      "rows": 529797,
+      "positives": 461867,
+      "users": 431940
+    },
+    {
+      "month": "2020-09",
+      "rows": 495977,
+      "positives": 435709,
+      "users": 408558
+    },
+    {
+      "month": "2020-10",
+      "rows": 554360,
+      "positives": 486758,
+      "users": 454114
+    },
+    {
+      "month": "2020-11",
+      "rows": 951060,
+      "positives": 875822,
+      "users": 811808
+    },
+    {
+      "month": "2020-12",
+      "rows": 805138,
+      "positives": 702752,
+      "users": 648688
+    },
+    {
+      "month": "2021-01",
+      "rows": 723775,
+      "positives": 639707,
+      "users": 574820
+    },
+    {
+      "month": "2021-02",
+      "rows": 668457,
+      "positives": 590835,
+      "users": 543189
+    },
+    {
+      "month": "2021-03",
+      "rows": 638256,
+      "positives": 557059,
+      "users": 516335
+    },
+    {
+      "month": "2021-04",
+      "rows": 646610,
+      "positives": 559084,
+      "users": 527904
+    },
+    {
+      "month": "2021-05",
+      "rows": 658741,
+      "positives": 570284,
+      "users": 526362
+    },
+    {
+      "month": "2021-06",
+      "rows": 682166,
+      "positives": 593460,
+      "users": 546408
+    },
+    {
+      "month": "2021-07",
+      "rows": 744756,
+      "positives": 649556,
+      "users": 589310
+    },
+    {
+      "month": "2021-08",
+      "rows": 698262,
+      "positives": 599675,
+      "users": 561294
+    },
+    {
+      "month": "2021-09",
+      "rows": 648173,
+      "positives": 552778,
+      "users": 530712
+    },
+    {
+      "month": "2021-10",
+      "rows": 661882,
+      "positives": 569871,
+      "users": 542945
+    },
+    {
+      "month": "2021-11",
+      "rows": 1185050,
+      "positives": 1043345,
+      "users": 1008330
+    },
+    {
+      "month": "2021-12",
+      "rows": 846729,
+      "positives": 721987,
+      "users": 678848
+    },
+    {
+      "month": "2022-01",
+      "rows": 875343,
+      "positives": 763560,
+      "users": 690740
+    },
+    {
+      "month": "2022-02",
+      "rows": 820793,
+      "positives": 696863,
+      "users": 675965
+    },
+    {
+      "month": "2022-03",
+      "rows": 679063,
+      "positives": 580767,
+      "users": 555548
+    },
+    {
+      "month": "2022-04",
+      "rows": 652936,
+      "positives": 532729,
+      "users": 533412
+    },
+    {
+      "month": "2022-05",
+      "rows": 656863,
+      "positives": 554873,
+      "users": 532275
+    },
+    {
+      "month": "2022-06",
+      "rows": 697578,
+      "positives": 598057,
+      "users": 555788
+    },
+    {
+      "month": "2022-07",
+      "rows": 807512,
+      "positives": 684542,
+      "users": 639874
+    },
+    {
+      "month": "2022-08",
+      "rows": 716011,
+      "positives": 615734,
+      "users": 576710
+    },
+    {
+      "month": "2022-09",
+      "rows": 669102,
+      "positives": 557864,
+      "users": 544757
+    },
+    {
+      "month": "2022-10",
+      "rows": 729496,
+      "positives": 585477,
+      "users": 596885
+    },
+    {
+      "month": "2022-11",
+      "rows": 1282247,
+      "positives": 1132940,
+      "users": 1093708
+    },
+    {
+      "month": "2022-12",
+      "rows": 1002583,
+      "positives": 836239,
+      "users": 796076
+    }
+  ],
+  "artifacts": {
+    "database": "data/processed/steamrec.duckdb",
+    "tables": [
+      "interactions",
+      "games",
+      "users",
+      "content"
+    ],
+    "rejected_directory": "D:\\University\\Project\\RecommenderSystem\\steam-recommendation-system\\data\\processed\\rejected",
+    "parquet": {
+      "interactions": "D:\\University\\Project\\RecommenderSystem\\steam-recommendation-system\\data\\processed\\parquet\\recommendations.parquet",
+      "games": "D:\\University\\Project\\RecommenderSystem\\steam-recommendation-system\\data\\processed\\parquet\\games.parquet",
+      "users": "D:\\University\\Project\\RecommenderSystem\\steam-recommendation-system\\data\\processed\\parquet\\users.parquet",
+      "content": "D:\\University\\Project\\RecommenderSystem\\steam-recommendation-system\\data\\processed\\parquet\\content.parquet"
+    }
+  },
+  "rules": {
+    "dedup": "deferred until history is limited to snapshot cutoff",
+    "invalid_rows": "quarantine with raw record and first rejection reason",
+    "orphan_reviews": "reported and retained",
+    "review_before_release": "reported and retained",
+    "content": "current metadata snapshot; no encoder fitted",
+    "columns": "preserve all 8 recommendation, 13 game and 3 user columns in specified order",
+    "features": "storage retains aggregates/prices; historical model features must exclude future aggregates"
+  },
+  "snapshot": {
+    "T1": null,
+    "T2": null,
+    "seed": null,
+    "sampler": null
+  },
+  "verified": "Source/staging counts accounted for; DB reopened; final Parquet and table counts matched; 8/13/3 schemas checked"
+}
