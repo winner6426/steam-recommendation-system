@@ -16,12 +16,12 @@ Kết quả Phase 3 không được giả định trước. Chọn mô hình/c�
 
 | Tệp | Dữ liệu dùng | Lưu ý |
 |---|---|---|
-| `data/recommendations.csv` | `user_id`, `app_id`, `date`, `is_recommended`, `hours`, `review_id` | Review `False` là negative xác nhận cho game đó; không có review là unknown |
-| `data/games.csv` | `app_id`, `title`, `date_release`, platform | `positive_ratio`, `rating`, `user_reviews` có nguy cơ rò rỉ thông tin thời gian |
-| `data/games_metadata.json` | `app_id`, `description`, `tags` | 20,39% thiếu description; 2,42% thiếu cả description và tags |
-| `data/users.csv` | `user_id`, `products`, `reviews` | `products` và `reviews` là **số lượng**, không phải danh sách game hoặc nội dung review |
+| `data/raw/recommendations.csv` | `user_id`, `app_id`, `date`, `is_recommended`, `hours`, `review_id` | Review `False` là negative xác nhận cho game đó; không có review là unknown |
+| `data/raw/games.csv` | `app_id`, `title`, `date_release`, platform | `positive_ratio`, `rating`, `user_reviews` có nguy cơ rò rỉ thông tin thời gian |
+| `data/raw/games_metadata.json` | `app_id`, `description`, `tags` | 20,39% thiếu description; 2,42% thiếu cả description và tags |
+| `data/raw/users.csv` | `user_id`, `products`, `reviews` | `products` và `reviews` là **số lượng**, không phải danh sách game hoặc nội dung review |
 
-Theo `data/dataset_report.txt`, có 41.154.794 review, trong đó 35.304.398 `True` và 5.850.396 `False`. Có 13.781.059 user và 37.610 game xuất hiện trong review; catalog có 50.872 game. Trung bình số review trên mỗi user có review xấp xỉ 3, nên phải báo cáo riêng hiệu quả với user ít lịch sử. Báo cáo hiện còn ghi đường dẫn cũ `archive/` bên trong; file dữ liệu thực tế đang nằm trong `data/`.
+Theo `data/dataset_report.txt`, có 41.154.794 review, trong đó 35.304.398 `True` và 5.850.396 `False`. Có 13.781.059 user và 37.610 game xuất hiện trong review; catalog có 50.872 game. Trung bình số review trên mỗi user có review xấp xỉ 3, nên phải báo cáo riêng hiệu quả với user ít lịch sử. Báo cáo hiện còn ghi đường dẫn cũ `archive/` bên trong; file dữ liệu thực tế đang nằm trong `data/raw/`.
 
 Dataset **không có** danh sách toàn bộ game user đã sở hữu/chơi, click, session hoặc thuộc tính nhân khẩu học. Hệ thống có thể loại game user đã review, nhưng không thể cam kết loại toàn bộ game họ từng chơi. Không sử dụng Knowledge Graph hay session-based recommendation trong phạm vi chính.
 
@@ -29,10 +29,14 @@ Dataset **không có** danh sách toàn bộ game user đã sở hữu/chơi, cl
 
 ### 3.1. Tạo dữ liệu sạch có thể tái lập
 
-- Dùng Python + DuckDB hoặc xử lý theo batch để đọc CSV lớn, xuất Parquet vào `data/processed/`. Giữ các file gốc trong `data/` nguyên trạng.
-- Kiểm tra kiểu dữ liệu, khóa join, trùng `(user_id, app_id)`, ngày review và ngày phát hành; ghi quy tắc giải quyết trùng vào báo cáo dữ liệu. Không chọn review đại diện từ tương lai để thay thế dữ liệu quá khứ của một snapshot.
-- Tạo `interactions_clean`, `games_clean`, ánh xạ `user_id/app_id` sang index liên tục theo từng snapshot, và content text theo `app_id`. Ghi số dòng bị loại/trùng và quy tắc xử lý vào manifest nhỏ ở `experiments/` vì `data/` đang bị Git bỏ qua.
+- Hoàn tất kiểm tra toàn bộ bốn nguồn và xác định quy tắc xử lý bất thường theo [architecture.md, mục 3.1](architecture.md#31-điều-kiện-nạp-toàn-bộ-và-lưu-trữ-preprocess), rồi **nạp tất cả dữ liệu để preprocess toàn bộ**. Luồng chính không giới hạn dòng hoặc lấy mẫu; smoke là chế độ kiểm thử tùy chọn. Giữ các file gốc trong `data/raw/` nguyên trạng.
+- Triển khai `scripts/prepare_data.py` với `configs/data.json`, package/dependencies trong `pyproject.toml` và các module `src/steamrec/data/{io,clean,validate,split,manifest}.py`. Theo thiết kế mục 3 của `architecture.md`: `load_file` đọc cả bốn nguồn, clean và validate trước, chỉ sau đó lưu các bảng `interactions`, `games`, `users`, `content` vào database bền vững. Không lưu bảng raw, không thêm hậu tố `_clean`, không yêu cầu thư mục `run_*`.
+- Lưu bốn bảng riêng, không ghép toàn bộ cột thành một bảng interaction lớn. Dữ liệu interactions giữ review lặp; bước snapshot áp dụng dedup theo cutoff tại mục 3 của `architecture.md`, rồi tạo mapping ID và artifact phục vụ train/evaluate. `split.py` hiện có helper dedup; phần tạo snapshot đầy đủ chờ chọn `T1/T2` từ báo cáo tháng.
+- Giữ Parquet cuối sau preprocess theo đường dẫn config; bảo toàn đầy đủ cột nguồn và thứ tự 8/13/3 của recommendations/games/users theo schema tại `architecture.md`, không thêm cờ vào ba bảng này. Test schema và giá trị các cột đã giữ, kiểm tra số dòng Parquet cuối; các trường có nguy cơ leakage được lưu nhưng không tự động dùng làm feature.
+- Đối chiếu số dòng cả bốn nguồn với dữ liệu giữ lại/cách ly, mở lại database xác nhận bảng và số dòng. Ghi SHA-256 input, quy tắc xử lý, audit join/ngày/content, thống kê tháng và artifact vào manifest theo đường dẫn config. Kiểm thử pipeline trên fixture có nhãn trái nhau, ngày sai, ID trùng và content thiếu trước khi bàn giao mã; báo riêng việc preprocess dữ liệu thật đã chạy hay chưa.
 - Không gán `0` cho tất cả ô trống của ma trận user-game. `hours` có thể thử làm confidence weight sau baseline; không thay thế nhãn `is_recommended`.
+
+**Hoàn thành bước preprocess khi:** cả bốn nguồn đã được nạp đầy đủ vào bảng bền vững, dữ liệu sạch và báo cáo được tạo trên toàn bộ input, kiểm tra số dòng và khả năng mở lại database đạt yêu cầu, có manifest tái lập. Đây là tiêu chí hoàn thành cần thực hiện, không phải khẳng định pipeline hiện đã chạy toàn bộ.
 
 ### 3.2. Khóa split và evaluator
 
